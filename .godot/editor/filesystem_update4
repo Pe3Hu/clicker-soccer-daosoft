@@ -1,0 +1,7 @@
+res://entities/world/world.tscn
+res://entities/stadium/stadium.tscn
+res://entities/player/player.tscn
+res://entities/world/world.gd
+res://entities/player/player.gd
+res://entities/ball/ball.tscn
+res://entities/ball/ball.gd
