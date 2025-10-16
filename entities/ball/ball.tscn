@@ -1,16 +1,130 @@
-[gd_scene load_steps=4 format=3 uid="uid://nqqhgim066wc"]
+[gd_scene load_steps=10 format=3 uid="uid://nqqhgim066wc"]
 
 [ext_resource type="Texture2D" uid="uid://b0web2n7vm3ci" path="res://entities/ball/sprites/football.png" id="1_61umk"]
 [ext_resource type="Script" uid="uid://dqf16gdrrnqx4" path="res://entities/ball/ball.gd" id="1_jyt08"]
+[ext_resource type="Shader" uid="uid://do5qd4wusou2m" path="res://entities/ball/ball.gdshader" id="2_w5wpn"]
+[ext_resource type="PackedScene" uid="uid://1o6e7aepoa7v" path="res://entities/ball/kick_path/kick_path.tscn" id="4_we1t7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_61umk"]
 radius = 5.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_we1t7"]
+shader = ExtResource("2_w5wpn")
+shader_parameter/uv_mode = false
+shader_parameter/x_factor = 2.0
+shader_parameter/bulge = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_w5wpn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/bulge")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jyt08"]
+resource_name = "bounce"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.53333336),
+"transitions": PackedFloat32Array(-2, -2, 1, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 0.5), Vector2(0.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.33333334, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, -2), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/bulge")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.33333334, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.3100000622249999, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w5wpn"]
+_data = {
+&"RESET": SubResource("Animation_w5wpn"),
+&"bounce": SubResource("Animation_jyt08")
+}
+
 [node name="Ball" type="CharacterBody2D"]
+collision_layer = 10
+collision_mask = 10
 script = ExtResource("1_jyt08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_61umk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_we1t7")
 texture = ExtResource("1_61umk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_w5wpn")
+}
+
+[node name="BounceTimer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="KickPath" parent="." instance=ExtResource("4_we1t7")]
+
+[connection signal="timeout" from="BounceTimer" to="." method="_on_bounce_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

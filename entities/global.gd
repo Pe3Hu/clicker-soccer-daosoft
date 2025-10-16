@@ -16,6 +16,36 @@ func init_arr() -> void:
 	
 func init_dict() -> void:
 	init_direction()
+	init_tile()
+	
+func init_tile() -> void:
+	dict.tile_to_cluster_size = {}
+	dict.tile_to_cluster_size["tribune"] = {}
+	dict.tile_to_cluster_size["tribune"]["WoodLeft"] = Vector2i(4, 6)
+	dict.tile_to_cluster_size["tribune"]["MetalCenter"] = Vector2i(6, 6)
+	dict.tile_to_cluster_size["tribune"]["WoodRight"] = Vector2i(4, 6)
+	dict.tile_to_cluster_size["grass"] = {}
+	dict.tile_to_cluster_size["grass"]["Odd"] = Vector2i(3, 7)
+	dict.tile_to_cluster_size["grass"]["Even"] = Vector2i(3, 7)
+	dict.tile_to_cluster_size["wall"] = {}
+	dict.tile_to_cluster_size["wall"]["Odd"] = Vector2i(3, 1)
+	dict.tile_to_cluster_size["wall"]["Even"] = Vector2i(3, 1)
+	dict.tile_to_cluster_size["road"] = {}
+	dict.tile_to_cluster_size["road"]["Pebble"] = Vector2i(1, 8)
+	
+	dict.tile_to_gap = {}
+	dict.tile_to_gap["tribune"] = {}
+	dict.tile_to_gap["tribune"]["WoodLeft"] = 15
+	dict.tile_to_gap["tribune"]["MetalCenter"] = 15
+	dict.tile_to_gap["tribune"]["WoodRight"] = 15
+	dict.tile_to_gap["grass"] = {}
+	dict.tile_to_gap["grass"]["Odd"] = 6
+	dict.tile_to_gap["grass"]["Even"] = 6
+	dict.tile_to_gap["wall"] = {}
+	dict.tile_to_gap["wall"]["Odd"] = 6
+	dict.tile_to_gap["wall"]["Even"] = 6
+	dict.tile_to_gap["road"] = {}
+	dict.tile_to_gap["road"]["Pebble"] = 15
 	
 func init_direction() -> void:
 	dict.direction = {}

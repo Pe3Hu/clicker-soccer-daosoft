@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://co2n0n3jg06qx"]
+
+[ext_resource type="Shader" uid="uid://lcbj16g4emwe" path="res://entities/player/trajectory/trajectory.gdshader" id="1_q34pe"]
+[ext_resource type="Script" uid="uid://dikprbt8t8hor" path="res://entities/player/trajectory/trajectory.gd" id="1_rw0j1"]
+[ext_resource type="Texture2D" uid="uid://nvoli5a3uumn" path="res://entities/player/sprites/trajectory.png" id="2_q34pe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bt5pw"]
+shader = ExtResource("1_q34pe")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rw0j1"]
+radius = 5.0
+
+[node name="KickTrajectory" type="Line2D"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_bt5pw")
+width = 12.0
+texture = ExtResource("2_q34pe")
+texture_mode = 1
+script = ExtResource("1_rw0j1")
+
+[node name="TestBody" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestBody"]
+shape = SubResource("CircleShape2D_rw0j1")

@@ -8,18 +8,53 @@
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_sbgiu")
+ball_scene = ExtResource("4_k6o36")
 
 [node name="Stadium" parent="." instance=ExtResource("2_tytc4")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("world") instance=ExtResource("3_gi14s")]
+[node name="Player" parent="." node_paths=PackedStringArray("world", "camera") instance=ExtResource("3_gi14s")]
 position = Vector2(72, 24)
 world = NodePath("..")
-
-[node name="Balls" type="Node2D" parent="."]
-
-[node name="Ball" parent="Balls" instance=ExtResource("4_k6o36")]
-position = Vector2(77, 134)
+camera = NodePath("../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(192, 108)
 zoom = Vector2(3, 3)
+
+[node name="Labels" type="MarginContainer" parent="Camera2D"]
+unique_name_in_owner = true
+offset_left = -192.0
+offset_top = -108.0
+offset_right = 192.0
+offset_bottom = 108.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+
+[node name="TimeLabel" type="Label" parent="Camera2D/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Time: 0s"
+
+[node name="BallLabel" type="Label" parent="Camera2D/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Balls: 0"
+
+[node name="Balls" type="Node2D" parent="."]
+
+[node name="Kicks" type="Node2D" parent="."]
+
+[node name="BallTimer" type="Timer" parent="."]
+wait_time = 0.8
+
+[node name="RestTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
+[connection signal="timeout" from="RestTimer" to="." method="_on_rest_timer_timeout"]
