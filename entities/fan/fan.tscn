@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2a3l38lyibdx"]
+
+[ext_resource type="Script" uid="uid://bbhctmsv7xewi" path="res://entities/fan/fan.gd" id="1_qrvuj"]
+[ext_resource type="Texture2D" uid="uid://dgypxx5lmlqm0" path="res://entities/fan/images/idle/1.png" id="1_ve2pe"]
+[ext_resource type="Texture2D" uid="uid://b3bjraa8agtoh" path="res://entities/fan/images/unconscious/2.png" id="3_e7psb"]
+[ext_resource type="Texture2D" uid="uid://dkmuu7yix322a" path="res://entities/fan/images/alarm/2.png" id="4_gs4h6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qrvuj"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="Animation" id="Animation_fohlw"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IdleSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e7psb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IdleSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gs4h6"]
+_data = {
+&"RESET": SubResource("Animation_e7psb"),
+&"idle": SubResource("Animation_fohlw")
+}
+
+[node name="Fan" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_qrvuj")
+
+[node name="UnconsciousSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_e7psb")
+
+[node name="AlarmSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_gs4h6")
+
+[node name="IdleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ve2pe")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qrvuj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gs4h6")
+}
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

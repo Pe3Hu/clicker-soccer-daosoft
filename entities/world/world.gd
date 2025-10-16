@@ -20,7 +20,7 @@ const BALL_SPAWN_OFFSET: Vector2 = Vector2(20, 7) * TILE_SIZE
 
 var time_start: float
 
-var max_kicks: int = 2
+var max_kicks: int = 50
 var kick_counter: int: 
 	set(value_):
 		kick_counter = value_

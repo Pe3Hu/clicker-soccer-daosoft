@@ -127,7 +127,7 @@ debug_path_custom_color = Color(1, 0.100000024, 0.100000024, 1)
 
 [node name="VisionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="VisionArea"]
 position = Vector2(65, 1)
@@ -137,8 +137,8 @@ polygon = PackedVector2Array(-0.9999972, 63, -82.00001, -52, 79.99999, -51)
 [node name="KickTrajectory" parent="." instance=ExtResource("3_sglur")]
 
 [node name="KickArea" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KickArea"]
 shape = SubResource("CircleShape2D_abrql")

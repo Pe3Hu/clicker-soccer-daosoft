@@ -15,3 +15,5 @@ res://entities/ball/kick_path/kick_path.tscn
 res://entities/ball/kick_path/kick_path.gd
 res://entities/stadium/cloakroom/cloakroom.tscn
 res://entities/stadium/cloakroom/cloakroom.gd
+res://entities/fan/fan.tscn
+res://entities/fan/fan.gd

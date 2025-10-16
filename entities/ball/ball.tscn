@@ -102,8 +102,8 @@ _data = {
 }
 
 [node name="Ball" type="CharacterBody2D"]
-collision_layer = 10
-collision_mask = 10
+collision_layer = 4
+collision_mask = 15
 script = ExtResource("1_jyt08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -125,6 +125,8 @@ autostart = true
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="KickPath" parent="." instance=ExtResource("4_we1t7")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="timeout" from="BounceTimer" to="." method="_on_bounce_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

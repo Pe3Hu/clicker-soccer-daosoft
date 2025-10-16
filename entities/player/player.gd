@@ -50,7 +50,8 @@ func _physics_process(delta_: float) -> void:
 	move_and_collide(delta_ * velocity)
 	
 	if kick_ball != null:
-		trajectory.update_vertexs(kick_direction, 100, 19.8, delta_)
+		trajectory.update_vertexs(kick_direction, 100, 20, delta_)
+		kick()
 		#var kick_angle = randf_range(-PI/3, -PI / 2)
 		#var kick_direction = Vector2.from_angle(kick_angle) #kick_ball.position - position
 		#trajectory.update_vertexs(kick_direction, 100, 19.8, delta_)
@@ -99,8 +100,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity_: Vector2) -> void:
 func update_animation() -> void:
 	if velocity.length() == 0:
 		#Disabling animation in case of inactivity
-		if animations.is_playing():
-			animations.stop()
+		animations.play("idle")
 	else:
 		#Determining the direction of movement
 		var angle = velocity.angle()
@@ -120,11 +120,14 @@ func kick() -> void:
 		if kick_ball != null:
 			#world.add_kick_path(kick_ball, trajectory.points)
 			kick_ball.kick_path.curve.clear_points()
+			kick_ball.fans.append_array(trajectory.fans)
 			
 			for point in trajectory.points:
 				kick_ball.kick_path.curve.add_point(point)
 			
-			kick_ball.position = kick_ball.kick_path.path_follow.global_position
+			kick_ball.set_collision_mask_value(2, false)
+			kick_ball.follow_fans()
+			#kick_ball.position = kick_ball.kick_path.path_follow.global_position
 			kick_ball.is_kicked = true
 			kick_ball = null
 			trajectory.visible = false
@@ -171,7 +174,6 @@ func _on_kick_area_body_entered(body_: Node2D) -> void:
 func _on_kick_area_body_exited(body_: Node2D) -> void:
 	if body_ is Ball:
 		if kick_ball == body_:
-			kick()
 			kick_ball = null
 	
 func _input(event_: InputEvent) -> void:

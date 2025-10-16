@@ -3,14 +3,17 @@ extends Node2D
 
 
 @export var cloakroom_scene: PackedScene
+@export var fan_scene: PackedScene
 
 @onready var grass: TileMapLayer = $Grass
 @onready var tribune: TileMapLayer = $Tribune
 @onready var wall: TileMapLayer = $Wall
 @onready var road: TileMapLayer = $Road
 @onready var cloakrooms: Node2D = $Cloakrooms
+@onready var fans: Node2D = $Fans
 
 
+var fan_limit: int = 10
 var step_limit: int = 15 * 1
 var current_limit: int = step_limit
 var current_offset: Dictionary
@@ -38,6 +41,7 @@ func init_current_offsets() -> void:
 	
 func extend_tilemaps() -> void:
 	current_limit += step_limit
+	var fan_coords = []
 	
 	for terrain in Global.dict.tile_to_cluster_size:
 		for type in Global.dict.tile_to_cluster_size[terrain]:
@@ -58,9 +62,24 @@ func extend_tilemaps() -> void:
 				
 				if terrain == "road":
 					add_cloakroom(coords[1])
+				if terrain == "tribune":
+					fan_coords.append_array(coords)
+	
+	fan_coords.shuffle()
+	
+	for _i in fan_limit:
+		var coord = fan_coords.pop_back()
+		add_fan(coord)
 	
 func add_cloakroom(coord_: Vector2i) -> void:
 	var cloakroom = cloakroom_scene.instantiate()
 	cloakroom.position = road.map_to_local(coord_)
 	cloakroom.stadium = self
 	cloakrooms.add_child(cloakroom)
+	
+func add_fan(coord_: Vector2i) -> void:
+	var fan = fan_scene.instantiate()
+	fan.position = road.map_to_local(coord_)
+	fan.stadium = self
+	fans.add_child(fan)
+	fan.id = randi_range(1, 5)

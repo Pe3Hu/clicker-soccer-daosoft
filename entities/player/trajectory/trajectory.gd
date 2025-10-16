@@ -2,10 +2,13 @@ class_name KickTrajectory
 extends Line2D
 
 
+var fans: Array[Fan]
+
 
 func update_vertexs(direction_: Vector2, speed_: float, gravity_: float, delta_: float) -> void:
 	var max_points: int = 400
 	clear_points()
+	fans.clear()
 	var current_position: Vector2 = Vector2.ZERO
 	var velocity = direction_ * speed_
 	
@@ -15,6 +18,10 @@ func update_vertexs(direction_: Vector2, speed_: float, gravity_: float, delta_:
 		
 		var collision = %TestBody.move_and_collide(velocity * delta_, false, true, true)
 		if collision:
+			var collider = collision.get_collider()
+			if collider is Fan:
+				fans.append(collider)
+			
 			velocity = velocity.bounce(collision.get_normal()) * 0.6
 		
 		current_position += velocity * delta_
