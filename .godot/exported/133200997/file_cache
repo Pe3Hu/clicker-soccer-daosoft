@@ -1,0 +1,9 @@
+res://assets/default_env.tres::756de160834ef7cc033c2a79cd80f338::1690116911::res://.godot/exported/133200997/export-298342078e44d9a209a1f8421d629c50-default_env.res
+res://entities/ball/kick_path/kick_path.tscn::784860b27578d44ef1aa2901501503dd::1760582209::res://.godot/exported/133200997/export-bf5a270851f4178b5db7f9cdc2585c05-kick_path.scn
+res://entities/ball/ball.tscn::c4fba6d5a78991da8f107bcb9e8b676d::1760590063::res://.godot/exported/133200997/export-5df7821765a66c69a64446810060abda-ball.scn
+res://entities/fan/fan.tscn::e30aea02a0c0b359064cafe11c4665a2::1760589626::res://.godot/exported/133200997/export-e07c184afe5451d68a0df209e7269e4f-fan.scn
+res://entities/player/trajectory/trajectory.tscn::95a5bf8aa22c19d21f40dc2fa506db94::1760587264::res://.godot/exported/133200997/export-08fa1a75c38d3fb6e049dd3266297c79-trajectory.scn
+res://entities/player/player.tscn::ac0b60545ab21ef5a7dc022a53e22bdb::1760593615::res://.godot/exported/133200997/export-21b780c0d4e68e8c35280599c3e67de2-player.scn
+res://entities/stadium/cloakroom/cloakroom.tscn::11dab17a16b09612733480df49205798::1760585423::res://.godot/exported/133200997/export-628166a19e24d497e4faba90cc3fb5f5-cloakroom.scn
+res://entities/stadium/stadium.tscn::57eec41b4d2fabcc486e7b4a6c6ae290::1760587133::res://.godot/exported/133200997/export-c87c9bcbcaa1e0c440db0d3031dda99f-stadium.scn
+res://entities/world/world.tscn::6f5ab4ab08e9a33c54effa9e6d6e7389::1760589955::res://.godot/exported/133200997/export-40d1a2d49aed9e64e7f87b70415fcfbf-world.scn

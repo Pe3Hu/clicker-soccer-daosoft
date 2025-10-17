@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://nqqhgim066wc"]
+[gd_scene load_steps=9 format=3 uid="uid://nqqhgim066wc"]
 
 [ext_resource type="Texture2D" uid="uid://b0web2n7vm3ci" path="res://entities/ball/sprites/football.png" id="1_61umk"]
 [ext_resource type="Script" uid="uid://dqf16gdrrnqx4" path="res://entities/ball/ball.gd" id="1_jyt08"]
 [ext_resource type="Shader" uid="uid://do5qd4wusou2m" path="res://entities/ball/ball.gdshader" id="2_w5wpn"]
-[ext_resource type="PackedScene" uid="uid://1o6e7aepoa7v" path="res://entities/ball/kick_path/kick_path.tscn" id="4_we1t7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_61umk"]
 radius = 5.0
@@ -123,8 +122,6 @@ wait_time = 0.6
 autostart = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="KickPath" parent="." instance=ExtResource("4_we1t7")]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

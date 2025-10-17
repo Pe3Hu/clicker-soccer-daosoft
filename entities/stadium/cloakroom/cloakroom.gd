@@ -1,3 +1,7 @@
+##An object to which the Player will run if the race ends.
+##
+## Key Features:
+## - Anchor for rest between raceser.
 class_name Cloakroom
 extends Area2D
 

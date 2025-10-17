@@ -100,8 +100,9 @@ _data = {
 &"walkUp": SubResource("Animation_fkugw")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_abrql"]
-radius = 32.140316
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sglur"]
+radius = 14.0
+height = 56.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_abrql")
@@ -122,7 +123,6 @@ libraries = {
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 20.0
 navigation_layers = 2
-debug_enabled = true
 debug_path_custom_color = Color(1, 0.100000024, 0.100000024, 1)
 
 [node name="VisionArea" type="Area2D" parent="."]
@@ -141,7 +141,8 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KickArea"]
-shape = SubResource("CircleShape2D_abrql")
+position = Vector2(15, -1)
+shape = SubResource("CapsuleShape2D_sglur")
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
